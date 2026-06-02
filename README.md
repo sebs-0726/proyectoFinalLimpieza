@@ -1,6 +1,6 @@
 # Servicio de Limpieza - Mini Proyecto CRUD en Java
 
-Proyecto educativo que implementa un CRUD para gestionar clientes,
+Proyecto de curso que implementa un CRUD para gestionar clientes,
 empleados y servicios de limpieza, siguiendo los principios SOLID.
 
 ---
@@ -18,15 +18,30 @@ src/
 │   ├── Employee.java                  ← Hereda de Person
 │   └── CleaningService.java           ← Modelo del servicio
 ├── interfaces/
+│   ├── CleaningServiceRepository.java ← Conexión con base de datos
+│   ├── ClientRepository.java          ← Conexión con base de datos
+│   ├── EmployeeRepository.java        ← Conexión con base de datos
 │   ├── IClientManager.java            ← Contrato para gestión de clientes
-│   ├── IEmployeeManager.java          ← Contrato para gestión de empleados
+    ├── IEmployeeManager.java          ← Contrato para gestión de empleados
 │   └── ICleaningServiceManager.java   ← Contrato para gestión de servicios
 ├── managers/
 │   ├── ClientManager.java             ← CRUD + validación de clientes
 │   ├── EmployeeManager.java           ← CRUD + validación de empleados
 │   └── CleaningServiceManager.java    ← CRUD + validación de servicios
-└── ui/
-    └── SystemController.java          ← Menús, búsqueda y visualización
+└── controllers/
+│     |── ClientController.java 
+│     |── EmployeeController.java
+│     └── ServiceController.java       ← Controladores Web mediante SpringBoot
+└──  resources/           
+      ├── app.css           
+      ├── app.js      
+      └── templates (.html)            ← Implementaciones UI Web
+  
+
+
+
+
+
 ```
 
 ---
@@ -37,7 +52,7 @@ src/
 Cada clase tiene una única razón para cambiar:
 - `Client`, `Employee`, `CleaningService` → solo representan datos.
 - `ClientManager`, `EmployeeManager`, `CleaningServiceManager` → solo gestionan y validan sus objetos.
-- `SystemController` → solo maneja la interacción con el usuario (menús, búsquedas).
+- `SystemController` → solo maneja la interacción con el usuario (menús, búsquedas desde consola, opcionales a la aplicación principal).
 - `Main` → solo inicializa la aplicación.
 
 ### O — Open/Closed (Abierto/Cerrado)
@@ -57,31 +72,11 @@ Cada clase tiene una única razón para cambiar:
   Ninguna mezcla responsabilidades de las otras.
 
 ### D — Dependency Inversion (Inversión de Dependencias)
-- `SystemController` recibe `IClientManager`, `IEmployeeManager` e
+- los controladores reciben `IClientManager`, `IEmployeeManager` e
   `ICleaningServiceManager` (interfaces), no las clases concretas.
-- Esto significa que si en el futuro los managers guardan datos en una base de datos,
-  `SystemController` no necesita ningún cambio, solo se cambia la implementación
-  concreta en `Main.java`.
 
----
 
-## Cómo Compilar y Ejecutar
 
-### Requisitos
-- Java JDK 8 o superior instalado.
-
-### Compilar (desde la carpeta `src/`)
-```bash
-cd src
-javac -encoding UTF-8 enums/*.java models/*.java interfaces/*.java managers/*.java ui/*.java Main.java
-```
-
-### Ejecutar
-```bash
-java Main
-```
-
----
 
 ## Validaciones Implementadas
 
@@ -100,8 +95,7 @@ java Main
 
 ## Pensado para Crecer
 
-- **Base de datos**: Solo se reemplaza la implementación de los managers
-  (ej. `ClientManagerDB`). `SystemController` y los modelos no cambian.
+- **Base de datos**: Implementada con JPA y MySQL mediante repositorios de entidades
 - **Frontend web**: Los modelos y managers ya están desacoplados de la consola,
   facilitando la integración con una API REST o un framework web.
-# final-tecnicas-de-programacion
+# proyectoFinalLimpieza
