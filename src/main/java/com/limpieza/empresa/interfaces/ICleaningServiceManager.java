@@ -5,12 +5,7 @@ import com.limpieza.empresa.models.CleaningService;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * INTERFAZ: Contrato para gestionar servicios de limpieza.
- *
- * Incluye un método especial: getServicesByStatus(), que permite
- * filtrar servicios por su estado (Pendiente, En labor, etc.).
- */
+
 public interface ICleaningServiceManager {
 
     boolean addService(String clientName, List<Long> employeeIds,

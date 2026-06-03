@@ -3,16 +3,7 @@ package com.limpieza.empresa.interfaces;
 import com.limpieza.empresa.models.Client;
 import java.util.List;
 
-/**
- * INTERFAZ: Contrato para gestionar clientes.
- *
- * SOLID - D (Dependency Inversion): SystemController depende de esta interfaz,
- * no de ClientManager directamente. Si en el futuro ClientManager cambia
- * (ej. guarda en base de datos), SystemController no necesita modificarse.
- *
- * SOLID - I (Interface Segregation): Esta interfaz solo define operaciones
- * relacionadas con clientes. No mezcla responsabilidades de empleados o servicios.
- */
+
 public interface IClientManager {
 
     /**
