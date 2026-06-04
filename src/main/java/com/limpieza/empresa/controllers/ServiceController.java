@@ -125,22 +125,17 @@ public class ServiceController {
         return "redirect:/services";
     }
 
-    private LocalDateTime parseDate(String dateTimeString) {
-        if (dateTimeString == null || dateTimeString.trim().isEmpty()) {
+    private LocalDateTime parseDate(String dateString) {
+        if (dateString == null || dateString.trim().isEmpty()) {
             throw new IllegalArgumentException("Fecha inválida");
         }
 
-        String trimmed = dateTimeString.trim();
-        try {
-            return LocalDateTime.parse(trimmed);
-        } catch (DateTimeParseException e) {
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                return LocalDateTime.parse(trimmed, formatter);
-            } catch (DateTimeParseException ex) {
-                return LocalDate.parse(trimmed, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay();
-            }
-        }
+        String trimmed = dateString.trim();
+        // Se espera una fecha en formato dd/MM/yyyy. La hora no es requerida;
+        // se asigna el inicio del día (00:00) para mantener el tipo LocalDateTime.
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate date = LocalDate.parse(trimmed, formatter);
+        return date.atStartOfDay();
     }
 
     @PostMapping("/services/delete/{id}")

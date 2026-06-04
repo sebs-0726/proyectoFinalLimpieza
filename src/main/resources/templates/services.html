@@ -124,9 +124,9 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="serviceDate" class="form-label">Fecha y Hora *</label>
-                            <input type="text" class="form-control" id="serviceDate" name="scheduledDate" placeholder="dd/MM/yyyy HH:mm" required>
-                            <small class="form-text text-muted">Formato: dd/MM/yyyy HH:mm (ej: 15/06/2026 14:30)</small>
+                            <label for="serviceDate" class="form-label">Fecha *</label>
+                            <input type="text" class="form-control" id="serviceDate" name="scheduledDate" placeholder="dd/MM/yyyy" required>
+                            <small class="form-text text-muted">Formato: dd/MM/yyyy (ej: 15/06/2026)</small>
                         </div>
                         <div class="mb-3">
                             <label for="serviceCost" class="form-label">Costo *</label>
@@ -221,8 +221,8 @@
                             <form method="post" th:action="${'/services/update/' + editingService.id}">
                                 <input type="hidden" name="field" value="date">
                                 <div class="mb-3">
-                                    <label class="form-label">Nueva Fecha (dd/MM/yyyy HH:mm)</label>
-                                    <input type="text" class="form-control" name="value" placeholder="dd/MM/yyyy HH:mm" required>
+                                    <label class="form-label">Nueva Fecha (dd/MM/yyyy)</label>
+                                    <input type="text" class="form-control" name="value" placeholder="dd/MM/yyyy" required>
                                 </div>
                                 <button type="submit" class="btn btn-success">Actualizar Fecha</button>
                                 <a href="/services" class="btn btn-secondary">Cancelar</a>

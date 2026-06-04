@@ -195,11 +195,11 @@ function validateServiceForm(form) {
     }
 
     if (!scheduledDate.value.trim()) {
-        alert('La fecha y hora son requeridas');
+        alert('La fecha es requerida');
         return false;
     }
-    if (!isValidDateTime(scheduledDate.value)) {
-        alert('Formato de fecha inválido. Use: dd/MM/yyyy HH:mm (ej: 15/06/2026 14:30)');
+    if (!isValidDate(scheduledDate.value)) {
+        alert('Formato de fecha inválido. Use: dd/MM/yyyy (ej: 15/06/2026)');
         return false;
     }
 
@@ -216,26 +216,30 @@ function validateServiceForm(form) {
     return true;
 }
 
-// Validar formato de fecha dd/MM/yyyy HH:mm
-function isValidDateTime(dateStr) {
-    const regex = /^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/;
+// Validar formato de fecha dd/MM/yyyy
+function isValidDate(dateStr) {
+    const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
     const match = dateStr.match(regex);
 
     if (!match) return false;
 
-    const day = parseInt(match[1]);
-    const month = parseInt(match[2]);
-    const year = parseInt(match[3]);
-    const hour = parseInt(match[4]);
-    const minute = parseInt(match[5]);
+    const day = parseInt(match[1], 10);
+    const month = parseInt(match[2], 10);
+    const year = parseInt(match[3], 10);
 
-    if (day < 1 || day > 31) return false;
     if (month < 1 || month > 12) return false;
     if (year < 2000 || year > 2100) return false;
-    if (hour < 0 || hour > 23) return false;
-    if (minute < 0 || minute > 59) return false;
+
+    // Días por mes, ajustando febrero para años bisiestos
+    const daysInMonth = [31, (isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    if (day < 1 || day > daysInMonth[month - 1]) return false;
 
     return true;
+}
+
+// ¿Es año bisiesto?
+function isLeapYear(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
 }
 
 // Inicializar al cargar la página
